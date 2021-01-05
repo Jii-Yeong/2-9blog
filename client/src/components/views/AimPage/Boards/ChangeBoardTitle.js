@@ -36,7 +36,7 @@ const ChangeBoardTitle = ({ board, update }) => {
                 onHide={modalClose}
                 backdrop="static"
                 keyboard={false} >
-                <div class="modalContent">
+                <div className="modalContent">
                     <Modal.Dialog>
 
                         <Modal.Header closeButton onClick={modalClose} className="modal-header-css">

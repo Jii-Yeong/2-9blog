@@ -33,7 +33,6 @@ function BoardCard({ board}) {
     const updateComplete = ()=>{
         setChangeTitle(false);
     }
-    console.log("bt", board.title);
 
     return (
         <div className="BoardCardPage">

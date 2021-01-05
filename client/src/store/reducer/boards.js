@@ -1,21 +1,17 @@
 import produce from 'immer';
 import { createAction, createReducer } from '@reduxjs/toolkit';
-import { v4 as uuid } from 'uuid';
+import axios from 'axios';
 
 export const CREATE_BOARD = "todo/CREATE_BOARD";
 export const DELETE_BOARD = "todo/DELETE_BOARD";
 export const UPDATE_BOARD = "todo/UPDATE_BOARD";
 
 //define createBoard action 
-export const createBoard = createAction(CREATE_BOARD, function prepare(title) {
-    return {
-        payload: {
-            id: uuid(),
-            title: title,
-            createdAt: new Date().toISOString(),
-        }
-    }
-});
+export const createBoard = boardInfo =>({
+    type: CREATE_BOARD,
+    boardId : boardInfo.data.boardId,
+    boardTitle : boardInfo.data.boardTitle 
+}); 
 
 export const deleteBoard = createAction(DELETE_BOARD, function prepare(boardId) {
     return {
@@ -25,46 +21,49 @@ export const deleteBoard = createAction(DELETE_BOARD, function prepare(boardId) 
     }
 })
 
-export const updateBoard = createAction(UPDATE_BOARD, function prepare(boardId, title) {
+export const updateBoard = createAction(UPDATE_BOARD, function prepare(boardId, boardTitle) {
     return {
         payload: {
             boardId: boardId,
-            title: title,
+            boardTitle: boardTitle,
         }
     }
 });
 
 
 const actions = {
-    createBoard
+    CREATE_BOARD
 };
 
 export { actions };
 
 const initialState = {
     boards: [{
-        id: "",
-        title: ""
+        boardId: "",
+        boardTitle: ""
     }]
 };
+
+//리듀서에도 저장하고 디비에서도 저장해야하는 건가
+
+
 
 export default createReducer(initialState, {
     [CREATE_BOARD]: (state, action) => {
         return produce(state, draft => {
-            draft.boards = [...state.boards, { id: action.payload.id, title: action.payload.title }];
+            draft.boards = [...state.boards, { boardId: action.boardId, boardTitle: action.boardTitle }];
         })
     },
     [DELETE_BOARD]: (state, action) => {
         return produce(state, draft => {
-            draft.boards = state.boards.filter((board) => board.id !== action.payload.boardId);
+            draft.boards = state.boards.filter((board) => board.boardId !== action.payload.boardId);
         })
     },
     [UPDATE_BOARD]: (state, action) => {
-        console.log(action);
         return produce(state, draft => {
             draft.boards = state.boards.map((board) => {
-                if (board.id == action.payload.boardId) {
-                    board = { ...board, title: action.payload.title };
+                if (board.boardId == action.payload.boardId) {
+                    board = { ...board, boardTitle: action.payload.boardTitle };
                 }
                 return board;
             })

@@ -15,7 +15,7 @@ def createUser(request):
         serializers = UserCreateSerializer(data=request.data)
         if not serializers.is_valid(raise_exception=True):
             return Response({"message": "Request Body Error."}, status=status.HTTP_400_BAD_REQUEST)
-        
+        print(serializers.validated_data["email"])
         # email 중복 검사
         if User.objects.filter(email=serializers.validated_data["email"]).first() is None:
             serializers.save()

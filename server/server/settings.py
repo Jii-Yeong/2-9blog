@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     
     'user.apps.UserConfig',
     'post.apps.PostConfig',
+    'todos.apps.TodosConfig'
 ]
 
 MIDDLEWARE = [

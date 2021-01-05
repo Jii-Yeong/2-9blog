@@ -33,7 +33,6 @@ function BoardPage() {
 
     const [activeValue, setActiveValue] = useState(1);
 
-
     const pageClick = (e) => {
         if(e.currentTarget.innerText.indexOf('current') == -1) //지금 현재 클릭한 버튼이 활성화되지 않으면
             setActiveValue(e.currentTarget.innerText);
@@ -56,7 +55,7 @@ function BoardPage() {
             <Button onClick={handleShow} size="30px" size="sm">CreateBoard</Button>
             <div className="BoardStyle">
                 {pageCard.map((board) =>
-                        <BoardCard key={board.id} board={board} />
+                    <BoardCard key={board.id} board={board} />
                 )}
             </div>
             {open ? <CreateBoardCard closed={isClosed} /> : ''}

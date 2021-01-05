@@ -1,5 +1,7 @@
 from django.contrib.auth.base_user import BaseUserManager
 
+#장고 auth 기능은 User 객체 제공
+
 # User를 생성할 클래스
 class UserManager(BaseUserManager):
     use_in_migrations = True
